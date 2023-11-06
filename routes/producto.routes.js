@@ -34,11 +34,11 @@ router.get('/producto/:id', (req, res) => {
 
 // insersion de un nuevo producto
 router.post('/producto_new', [
-    body('idProducto').not().isEmpty().isString(),
+    body('idProducto').not().isEmpty(),
     body('pnombre').not().isEmpty().isString(),
     body('pmarca').not().isEmpty().isString(),
-    body('pcosto').not().isEmpty().isString(),
-    body('pexitencia').not().isEmpty().isString()
+    body('pcosto').not().isEmpty(),
+    body('pexitencia').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

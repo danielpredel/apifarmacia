@@ -34,7 +34,7 @@ router.get('/cliente/:id', (req, res) => {
 
 // insersion de un nuevo cliente
 router.post('/cliente_new', [
-    body('idCliente').not().isEmpty().isString(),
+    body('idCliente').not().isEmpty(),
     body('cnombre').not().isEmpty().isString(),
     body('cedad').not().isEmpty().isString(),
     body('ctelefono').not().isEmpty().isString(),
@@ -50,6 +50,35 @@ router.post('/cliente_new', [
     }
     let body = req.body;
     query.new(connection, "cliente", body, (data => {
+        res.json(data);
+    }))
+});
+
+// update de un cliente
+router.put('/cliente_edit', [
+    body('idCliente').not().isEmpty(),
+    body('cnombre').not().isEmpty().isString(),
+    body('cedad').not().isEmpty().isString(),
+    body('ctelefono').not().isEmpty().isString(),
+    body('cdireccion').not().isEmpty().isString()
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.json({
+            success: false,
+            err: JSON.stringify(errors)
+        })
+        return
+    }
+    let id = req.body.idCliente;
+    let values = {
+        idCliente:  id,
+        cnombre: req.body.cnombre,
+        cedad: req.body.cedad,
+        ctelefono: req.body.ctelefono,
+        cdireccion: req.body.cdireccion
+    }
+    query.edit(connection, "cliente", "idCliente", id, values, (data => {
         res.json(data);
     }))
 });

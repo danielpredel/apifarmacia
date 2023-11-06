@@ -26,8 +26,8 @@ router.get('/producto_proveedor_all', [], (req, res) => {
 
 // insersion de un nuevo registro en producto_proveedor
 router.post('/producto_proveedor_new', [
-    body('Producto_idProducto').not().isEmpty().isString(),
-    body('Proveedor_idProveedor').not().isEmpty().isString()
+    body('Producto_idProducto').not().isEmpty(),
+    body('Proveedor_idProveedor').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -55,4 +55,35 @@ router.post('/doctor_new', [
     }))
 });
 
+// update de un doctor
+router.put('/doctor_edit', [
+    body('idDoctor').not().isEmpty(),
+    body('dnombre').not().isEmpty().isString(),
+    body('dedad').not().isEmpty().isString(),
+    body('dtelefono').not().isEmpty().isString(),
+    body('ddireccion').not().isEmpty().isString(),
+    body('dturno').not().isEmpty().isString()
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.json({
+            success: false,
+            err: JSON.stringify(errors)
+        })
+        return
+    }
+    let id = req.body.idDoctor;
+    let values = {
+        idDoctor:  id,
+        dnombre: req.body.dnombre,
+        dedad: req.body.dedad,
+        dtelefono: req.body.dtelefono,
+        ddireccion: req.body.ddireccion,
+        dturno: req.body.dturno
+    }
+    query.edit(connection, "doctor", "idDoctor", id, values, (data => {
+        res.json(data);
+    }))
+});
+
 module.exports = router;

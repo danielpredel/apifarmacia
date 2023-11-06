@@ -34,11 +34,11 @@ router.get('/consulta/:id', (req, res) => {
 
 // insersion de un nueva consulta
 router.post('/consulta_new', [
-    body('Cliente_idCliente').not().isEmpty().isString(),
-    body('Doctor_idDoctor').not().isEmpty().isString(),
-    body('precioc').not().isEmpty().isString(),
+    body('Cliente_idCliente').not().isEmpty(),
+    body('Doctor_idDoctor').not().isEmpty(),
+    body('precioc').not().isEmpty(),
     body('fechac').not().isEmpty().isString(),
-    body('idConsulta').not().isEmpty().isString()
+    body('idConsulta').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -50,6 +50,35 @@ router.post('/consulta_new', [
     }
     let body = req.body;
     query.new(connection, "consultar", body, (data => {
+        res.json(data);
+    }))
+});
+
+// update de una consulta
+router.put('/consulta_edit', [
+    body('Cliente_idCliente').not().isEmpty(),
+    body('Doctor_idDoctor').not().isEmpty(),
+    body('precioc').not().isEmpty(),
+    body('fechac').not().isEmpty().isString(),
+    body('idConsulta').not().isEmpty()
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.json({
+            success: false,
+            err: JSON.stringify(errors)
+        })
+        return
+    }
+    let id = req.body.idConsulta;
+    let values = {
+        Cliente_idCliente:  req.body.Cliente_idCliente,
+        Doctor_idDoctor: req.body.Doctor_idDoctor,
+        precioc: req.body.precioc,
+        fechac: req.body.fechac,
+        idConsulta: id
+    }
+    query.edit(connection, "consultar", "idConsulta", id, values, (data => {
         res.json(data);
     }))
 });

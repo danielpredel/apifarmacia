@@ -34,7 +34,7 @@ router.get('/proveedor/:id', (req, res) => {
 
 // insersion de un nuevo proveedor
 router.post('/proveedor_new', [
-    body('idProveedor').not().isEmpty().isString(),
+    body('idProveedor').not().isEmpty(),
     body('prnombre').not().isEmpty().isString(),
     body('predad').not().isEmpty().isString(),
     body('prtelefono').not().isEmpty().isString(),

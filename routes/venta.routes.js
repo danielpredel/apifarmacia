@@ -36,9 +36,9 @@ router.get('/venta/:id', (req, res) => {
 router.post('/venta_new', [
     body('fechav').not().isEmpty().isString(),
     body('idventa').not().isEmpty().isString(),
-    body('Cliente_idCliente').not().isEmpty().isString(),
-    body('Empleado_idEmpleado').not().isEmpty().isString(),
-    body('totalVenta').not().isEmpty().isString()
+    body('Cliente_idCliente').not().isEmpty(),
+    body('Empleado_idEmpleado').not().isEmpty(),
+    body('totalVenta').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

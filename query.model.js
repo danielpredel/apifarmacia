@@ -74,5 +74,23 @@ module.exports = {
                 success: true
             });
         });
+    },
+    edit: (connection, table, pkColumn, id, values, callback) => {
+        connection.query(`update ${table} SET ? where ${pkColumn} = ?`, [values, id], (err, results) => {
+            if (err) {
+                callback({
+                    array: null,
+                    id: null,
+                    success: false,
+                    err: JSON.stringify(err)
+                });
+                return;
+            }
+            callback({
+                array: null,
+                id: null,
+                success: true
+            });
+        });
     }
 }

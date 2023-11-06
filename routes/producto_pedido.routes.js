@@ -26,9 +26,9 @@ router.get('/producto_pedido_all', [], (req, res) => {
 
 // insersion de un nuevo registro en producto_pedido
 router.post('/producto_pedido_new', [
-    body('Producto_idProducto').not().isEmpty().isString(),
-    body('Pedido_idPedido').not().isEmpty().isString(),
-    body('cantidadPedido').not().isEmpty().isString()
+    body('Producto_idProducto').not().isEmpty(),
+    body('Pedido_idPedido').not().isEmpty(),
+    body('cantidadPedido').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
