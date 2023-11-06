@@ -24,6 +24,24 @@ router.get('/producto_all', [], (req, res) => {
     }))
 });
 
+// Ruta para eliminar un producto por su ID (PK)
+router.delete('/producto/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "producto", "idProducto", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Producto eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el producto'
+            });
+        }
+    }));
+});
+
 // Consultar un producto por su id (PK)
 router.get('/producto/:id', (req, res) => {
     const id = req.params.id;

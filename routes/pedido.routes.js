@@ -54,4 +54,21 @@ router.post('/pedido_new', [
     }))
 });
 
+// Ruta para eliminar un pedido por su ID (PK)
+router.delete('/pedido/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "pedido", "idPedido", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Pedido eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el pedido'
+            });
+        }
+    }));
+});
 module.exports = router;

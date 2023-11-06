@@ -54,4 +54,21 @@ router.post('/proveedor_new', [
     }))
 });
 
+// Ruta para eliminar un proveedor por su ID (PK)
+router.delete('/proveedor/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "proveedor", "idProveedor", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Proveedor eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el proveedor'
+            });
+        }
+    }));
+});
 module.exports = router;
