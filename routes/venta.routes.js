@@ -54,4 +54,33 @@ router.post('/venta_new', [
     }))
 });
 
+// update de un venta
+router.put('/venta_edit', [
+    body('fechav').not().isEmpty().isString(),
+    body('idventa').not().isEmpty().isString(),
+    body('Cliente_idCliente').not().isEmpty(),
+    body('Empleado_idEmpleado').not().isEmpty(),
+    body('totalVenta').not().isEmpty()
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.json({
+            success: false,
+            err: JSON.stringify(errors)
+        })
+        return
+    }
+    let id = req.body.idventa;
+    let values = {
+        idventa:  id,
+        fechav: req.body.fechav,
+        Cliente_idCliente: req.body.Cliente_idCliente,
+        Empleado_idEmpleado: req.body.Empleado_idEmpleado,
+        totalVenta: req.body.totalVenta
+    }
+    query.edit(connection, "venta", "idventa", id, values, (data => {
+        res.json(data);
+    }))
+});
+
 module.exports = router;

@@ -54,4 +54,33 @@ router.post('/proveedor_new', [
     }))
 });
 
+// update de un proveedor
+router.put('/proveedor_edit', [
+    body('idProveedor').not().isEmpty(),
+    body('prnombre').not().isEmpty().isString(),
+    body('predad').not().isEmpty().isString(),
+    body('prtelefono').not().isEmpty().isString(),
+    body('prdireccion').not().isEmpty().isString()
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.json({
+            success: false,
+            err: JSON.stringify(errors)
+        })
+        return
+    }
+    let id = req.body.idProveedor;
+    let values = {
+        idProveedor:  id,
+        prnombre: req.body.prnombre,
+        predad: req.body.predad,
+        prtelefono: req.body.prtelefono,
+        prdireccion: req.body.prdireccion
+    }
+    query.edit(connection, "proveedor", "idProveedor", id, values, (data => {
+        res.json(data);
+    }))
+});
+
 module.exports = router;

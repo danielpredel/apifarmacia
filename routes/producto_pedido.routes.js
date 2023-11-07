@@ -44,4 +44,29 @@ router.post('/producto_pedido_new', [
     }))
 });
 
+// update de un producto_pedido
+// router.put('/producto_pedido_edit', [
+//     body('Producto_idProducto').not().isEmpty(),
+//     body('Pedido_idPedido').not().isEmpty(),
+//     body('cantidadPedido').not().isEmpty()
+// ], (req, res) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//         res.json({
+//             success: false,
+//             err: JSON.stringify(errors)
+//         })
+//         return
+//     }
+//     let id = req.body.idCliente;
+//     let values = {
+//         idCliente:  id,
+//         cnombre: req.body.cnombre,
+//         cedad: req.body.cedad,
+//     }
+//     query.edit(connection, "cliente", "idCliente", id, values, (data => {
+//         res.json(data);
+//     }))
+// });
+
 module.exports = router;

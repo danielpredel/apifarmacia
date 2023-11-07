@@ -54,4 +54,33 @@ router.post('/producto_new', [
     }))
 });
 
+// update de un cliente
+router.put('/producto_edit', [
+    body('idProducto').not().isEmpty(),
+    body('pnombre').not().isEmpty().isString(),
+    body('pmarca').not().isEmpty().isString(),
+    body('pcosto').not().isEmpty(),
+    body('pexitencia').not().isEmpty()
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.json({
+            success: false,
+            err: JSON.stringify(errors)
+        })
+        return
+    }
+    let id = req.body.idProducto;
+    let values = {
+        idProducto:  id,
+        pnombre: req.body.pnombre,
+        pmarca: req.body.pmarca,
+        pcosto: req.body.pcosto,
+        pexitencia: req.body.pexitencia
+    }
+    query.edit(connection, "producto", "idProducto", id, values, (data => {
+        res.json(data);
+    }))
+});
+
 module.exports = router;
