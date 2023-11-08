@@ -44,4 +44,22 @@ router.post('/producto_venta_new', [
     }))
 });
 
+// Ruta para eliminar un venta por su ID (PK)
+router.delete('/producto_venta/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "producto_venta", "Producto_idProducto", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Producto_venta eliminada con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar Producto_venta'
+            });
+        }
+    }));
+});
+
 module.exports = router;

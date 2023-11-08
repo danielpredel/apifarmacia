@@ -84,6 +84,24 @@ router.put('/empleado_edit', [
     query.edit(connection, "empleado", "idEmpleado", id, values, (data => {
         res.json(data);
     }))
+})
+
+// Ruta para eliminar un empleado por su ID (PK)
+router.delete('/empleado/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "empleado", "idEmpleado", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Empleado eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el empleado'
+            });
+        }
+    }));
 });
 
 module.exports = router;

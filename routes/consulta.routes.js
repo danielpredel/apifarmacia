@@ -81,6 +81,25 @@ router.put('/consulta_edit', [
     query.edit(connection, "consultar", "idConsulta", id, values, (data => {
         res.json(data);
     }))
+})
+
+
+// Ruta para eliminar una consulta por su ID (PK)
+router.delete('/consulta/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "consultar", "idConsulta", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Consulta eliminada con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar la consulta'
+            });
+        }
+    }));
 });
 
 module.exports = router;

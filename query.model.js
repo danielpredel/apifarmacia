@@ -92,5 +92,19 @@ module.exports = {
                 success: true
             });
         });
+    },
+    delete: (connection, table, pkColumn, pkValue, callback) => {
+        connection.query(`DELETE FROM ${table} WHERE ${pkColumn} = ?`, pkValue, (err, results) => {
+            if (err) {
+                callback({
+                    success: false,
+                    err: JSON.stringify(err)
+                });
+                return;
+            }
+            callback({
+                success: true
+            });
+        });
     }
 }

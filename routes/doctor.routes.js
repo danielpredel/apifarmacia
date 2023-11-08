@@ -86,4 +86,23 @@ router.put('/doctor_edit', [
     }))
 });
 
+// Ruta para eliminar un doctor por su ID (PK)
+router.delete('/doctor/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "doctor", "idDoctor", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Doctor eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el doctor'
+            });
+        }
+    }));
+});
+
+
 module.exports = router;

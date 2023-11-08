@@ -32,6 +32,23 @@ router.get('/cliente/:id', (req, res) => {
     }))
 });
 
+// Ruta para eliminar un cliente por su ID (PK)
+router.delete('/cliente/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "cliente", "idCliente", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Cliente eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el cliente'
+            });
+        }
+    }));
+});
 // insersion de un nuevo cliente
 router.post('/cliente_new', [
     body('idCliente').not().isEmpty(),
