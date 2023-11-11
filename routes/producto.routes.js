@@ -24,24 +24,6 @@ router.get('/producto_all', [], (req, res) => {
     }))
 });
 
-// Ruta para eliminar un producto por su ID (PK)
-router.delete('/producto/:id', (req, res) => {
-    const id = req.params.id;
-    query.delete(connection, "producto", "idProducto", id, (data => {
-        if (data.success) {
-            res.json({
-                success: true,
-                message: 'Producto eliminado con éxito'
-            });
-        } else {
-            res.json({
-                success: false,
-                err: 'Error al eliminar el producto'
-            });
-        }
-    }));
-});
-
 // Consultar un producto por su id (PK)
 router.get('/producto/:id', (req, res) => {
     const id = req.params.id;
@@ -72,7 +54,7 @@ router.post('/producto_new', [
     }))
 });
 
-// update de un cliente
+// update de un producto
 router.put('/producto_edit', [
     body('idProducto').not().isEmpty(),
     body('pnombre').not().isEmpty().isString(),
@@ -99,6 +81,24 @@ router.put('/producto_edit', [
     query.edit(connection, "producto", "idProducto", id, values, (data => {
         res.json(data);
     }))
+});
+
+// Ruta para eliminar un producto por su ID (PK)
+router.delete('/producto/:id', (req, res) => {
+    const id = req.params.id;
+    query.delete(connection, "producto", "idProducto", id, (data => {
+        if (data.success) {
+            res.json({
+                success: true,
+                message: 'Producto eliminado con éxito'
+            });
+        } else {
+            res.json({
+                success: false,
+                err: 'Error al eliminar el producto'
+            });
+        }
+    }));
 });
 
 module.exports = router;

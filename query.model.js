@@ -4,8 +4,6 @@ module.exports = {
             // console.log(`describe ${table}`)
             if (err) {
                 callback({
-                    array: null,
-                    id: null,
                     success: false,
                     err: JSON.stringify(err)
                 });
@@ -13,7 +11,6 @@ module.exports = {
             }
             callback({
                 array: results,
-                id: null,
                 success: true
             });
         })
@@ -23,8 +20,6 @@ module.exports = {
             // console.log(`all ${table}`)
             if (err) {
                 callback({
-                    array: null,
-                    id: null,
                     success: false,
                     err: JSON.stringify(err)
                 });
@@ -32,7 +27,6 @@ module.exports = {
             }
             callback({
                 array: results,
-                id: null,
                 success: true
             });
         })
@@ -42,8 +36,6 @@ module.exports = {
             // console.log(`row ${table} + ${pkColumn} `)
             if (err) {
                 callback({
-                    array: null,
-                    id: null,
                     success: false,
                     err: JSON.stringify(err)
                 });
@@ -51,7 +43,6 @@ module.exports = {
             }
             callback({
                 array: results,
-                id: null,
                 success: true
             });
         })
@@ -61,16 +52,12 @@ module.exports = {
             // console.log(`insert ${table}`)
             if (err) {
                 callback({
-                    array: null,
-                    id: null,
                     success: false,
                     err: JSON.stringify(err)
                 });
                 return;
             }
             callback({
-                array: null,
-                id: null,
                 success: true
             });
         });
@@ -79,16 +66,12 @@ module.exports = {
         connection.query(`update ${table} SET ? where ${pkColumn} = ?`, [values, id], (err, results) => {
             if (err) {
                 callback({
-                    array: null,
-                    id: null,
                     success: false,
                     err: JSON.stringify(err)
                 });
                 return;
             }
             callback({
-                array: null,
-                id: null,
                 success: true
             });
         });
