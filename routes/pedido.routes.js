@@ -58,11 +58,11 @@ router.post('/pedido_new', [
 
 // update de un pedido
 router.put('/pedido_edit', [
-    body('totalpedido').not().isEmpty(),
-    body('fechas').not().isEmpty().isString(),
-    body('idPedido').not().isEmpty(),
-    body('Proveedor_idProveedor').not().isEmpty(),
-    body('status').not().isEmpty().isString()
+    body('IdPedido').not().isEmpty(),
+    body('TotalPedido').not().isEmpty(),
+    body('FechasPedido').not().isEmpty().isString(),
+    body('Proveedor_IdProveedor').not().isEmpty(),
+    body('StatusPedido').not().isEmpty().isString()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -72,16 +72,15 @@ router.put('/pedido_edit', [
         })
         return
     }
-    let id = req.body.idPedido;
+    let id = req.body.IdPedido;
     let values = {
-        totalpedido: req.body.totalpedido,
-        fechas: req.body.fechas,
-        idPedido: id,
-        Proveedor_idProveedor: req.body.Proveedor_idProveedor,
-        status: req.body.status
+        TotalPedido: req.body.TotalPedido,
+        FechasPedido: req.body.FechasPedido,
+        Proveedor_IdProveedor: req.body.Proveedor_IdProveedor,
+        StatusPedido: req.body.StatusPedido
     }
     console.log(values)
-    query.edit(connection, "pedido", "idPedido", id, values, (data => {
+    query.edit(connection, "pedido", "IdPedido", id, values, (data => {
         res.json(data);
     }))
 });

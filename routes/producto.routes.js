@@ -34,11 +34,10 @@ router.get('/producto/:id', (req, res) => {
 
 // insersion de un nuevo producto
 router.post('/producto_new', [
-    body('idProducto').not().isEmpty(),
-    body('pnombre').not().isEmpty().isString(),
-    body('pmarca').not().isEmpty().isString(),
-    body('pcosto').not().isEmpty(),
-    body('pexitencia').not().isEmpty()
+    body('NombreProducto').not().isEmpty().isString(),
+    body('MarcaProducto').not().isEmpty().isString(),
+    body('CostoProducto').not().isEmpty(),
+    body('ExistenciaProducto').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,11 +55,11 @@ router.post('/producto_new', [
 
 // update de un producto
 router.put('/producto_edit', [
-    body('idProducto').not().isEmpty(),
-    body('pnombre').not().isEmpty().isString(),
-    body('pmarca').not().isEmpty().isString(),
-    body('pcosto').not().isEmpty(),
-    body('pexitencia').not().isEmpty()
+    body('IdProducto').not().isEmpty(),
+    body('NombreProducto').not().isEmpty().isString(),
+    body('MarcaProducto').not().isEmpty().isString(),
+    body('CostoProducto').not().isEmpty(),
+    body('ExistenciaProducto').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -70,15 +69,14 @@ router.put('/producto_edit', [
         })
         return
     }
-    let id = req.body.idProducto;
+    let id = req.body.IdProducto;
     let values = {
-        idProducto:  id,
-        pnombre: req.body.pnombre,
-        pmarca: req.body.pmarca,
-        pcosto: req.body.pcosto,
-        pexitencia: req.body.pexitencia
+        NombreProducto: req.body.NombreProducto,
+        MarcaProducto: req.body.MarcaProducto,
+        CostoProducto: req.body.CostoProducto,
+        ExistenciaProducto: req.body.ExistenciaProducto
     }
-    query.edit(connection, "producto", "idProducto", id, values, (data => {
+    query.edit(connection, "producto", "IdProducto", id, values, (data => {
         res.json(data);
     }))
 });
@@ -86,7 +84,7 @@ router.put('/producto_edit', [
 // Ruta para eliminar un producto por su ID (PK)
 router.delete('/producto/:id', (req, res) => {
     const id = req.params.id;
-    query.delete(connection, "producto", "idProducto", id, (data => {
+    query.delete(connection, "producto", "IdProducto", id, (data => {
         if (data.success) {
             res.json({
                 success: true,

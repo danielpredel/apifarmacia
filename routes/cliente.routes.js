@@ -35,7 +35,7 @@ router.get('/cliente/:id', (req, res) => {
 // Ruta para eliminar un cliente por su ID (PK)
 router.delete('/cliente/:id', (req, res) => {
     const id = req.params.id;
-    query.delete(connection, "cliente", "idCliente", id, (data => {
+    query.delete(connection, "cliente", "IdCliente", id, (data => {
         if (data.success) {
             res.json({
                 success: true,
@@ -51,11 +51,10 @@ router.delete('/cliente/:id', (req, res) => {
 });
 // insersion de un nuevo cliente
 router.post('/cliente_new', [
-    body('idCliente').not().isEmpty(),
-    body('cnombre').not().isEmpty().isString(),
-    body('cedad').not().isEmpty().isString(),
-    body('ctelefono').not().isEmpty().isString(),
-    body('cdireccion').not().isEmpty().isString()
+    body('NombreCliente').not().isEmpty().isString(),
+    body('EdadCliente').not().isEmpty(),
+    body('TelefonoCliente').not().isEmpty().isString(),
+    body('DireccionCliente').not().isEmpty().isString()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -73,11 +72,11 @@ router.post('/cliente_new', [
 
 // update de un cliente
 router.put('/cliente_edit', [
-    body('idCliente').not().isEmpty(),
-    body('cnombre').not().isEmpty().isString(),
-    body('cedad').not().isEmpty().isString(),
-    body('ctelefono').not().isEmpty().isString(),
-    body('cdireccion').not().isEmpty().isString()
+    body('IdCliente').not().isEmpty(),
+    body('NombreCliente').not().isEmpty().isString(),
+    body('EdadCliente').not().isEmpty(),
+    body('TelefonoCliente').not().isEmpty().isString(),
+    body('DireccionCliente').not().isEmpty().isString()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -87,15 +86,14 @@ router.put('/cliente_edit', [
         })
         return
     }
-    let id = req.body.idCliente;
+    let id = req.body.IdCliente;
     let values = {
-        idCliente:  id,
-        cnombre: req.body.cnombre,
-        cedad: req.body.cedad,
-        ctelefono: req.body.ctelefono,
-        cdireccion: req.body.cdireccion
+        NombreCliente: req.body.NombreCliente,
+        EdadCliente: req.body.EdadCliente,
+        TelefonoCliente: req.body.TelefonoCliente,
+        DireccionCliente: req.body.DireccionCliente
     }
-    query.edit(connection, "cliente", "idCliente", id, values, (data => {
+    query.edit(connection, "cliente", "IdCliente", id, values, (data => {
         res.json(data);
     }))
 });

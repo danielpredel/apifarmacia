@@ -34,12 +34,11 @@ router.get('/empleado/:id', (req, res) => {
 
 // insersion de un nuevo empleado
 router.post('/empleado_new', [
-    body('idEmpleado').not().isEmpty(),
-    body('Enombre').not().isEmpty().isString(),
-    body('Etelefono').not().isEmpty().isString(),
-    body('Edireccion').not().isEmpty().isString(),
-    body('Eedad').not().isEmpty().isString(),
-    body('suedo').not().isEmpty()
+    body('NombreEmpleado').not().isEmpty().isString(),
+    body('TelefonoEmpleado').not().isEmpty().isString(),
+    body('DireccionEmpleado').not().isEmpty().isString(),
+    body('EdadEmpleado').not().isEmpty(),
+    body('SueldoEmpleado').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -57,12 +56,12 @@ router.post('/empleado_new', [
 
 // update de un empleado
 router.put('/empleado_edit', [
-    body('idEmpleado').not().isEmpty(),
-    body('Enombre').not().isEmpty().isString(),
-    body('Etelefono').not().isEmpty().isString(),
-    body('Edireccion').not().isEmpty().isString(),
-    body('Eedad').not().isEmpty().isString(),
-    body('suedo').not().isEmpty()
+    body('IdEmpleado').not().isEmpty(),
+    body('NombreEmpleado').not().isEmpty().isString(),
+    body('TelefonoEmpleado').not().isEmpty().isString(),
+    body('DireccionEmpleado').not().isEmpty().isString(),
+    body('EdadEmpleado').not().isEmpty(),
+    body('SueldoEmpleado').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -72,16 +71,15 @@ router.put('/empleado_edit', [
         })
         return
     }
-    let id = req.body.idEmpleado;
+    let id = req.body.IdEmpleado;
     let values = {
-        idEmpleado:  id,
-        Enombre: req.body.Enombre,
-        Etelefono: req.body.Etelefono,
-        Edireccion: req.body.Edireccion,
-        Eedad: req.body.Eedad,
-        suedo: req.body.suedo
+        NombreEmpleado: req.body.NombreEmpleado,
+        TelefonoEmpleado: req.body.TelefonoEmpleado,
+        DireccionEmpleado: req.body.DireccionEmpleado,
+        EdadEmpleado: req.body.EdadEmpleado,
+        SueldoEmpleado: req.body.SueldoEmpleado
     }
-    query.edit(connection, "empleado", "idEmpleado", id, values, (data => {
+    query.edit(connection, "empleado", "IdEmpleado", id, values, (data => {
         res.json(data);
     }))
 })
@@ -89,7 +87,7 @@ router.put('/empleado_edit', [
 // Ruta para eliminar un empleado por su ID (PK)
 router.delete('/empleado/:id', (req, res) => {
     const id = req.params.id;
-    query.delete(connection, "empleado", "idEmpleado", id, (data => {
+    query.delete(connection, "empleado", "IdEmpleado", id, (data => {
         if (data.success) {
             res.json({
                 success: true,

@@ -34,11 +34,10 @@ router.get('/proveedor/:id', (req, res) => {
 
 // insersion de un nuevo proveedor
 router.post('/proveedor_new', [
-    body('idProveedor').not().isEmpty(),
-    body('prnombre').not().isEmpty().isString(),
-    body('predad').not().isEmpty().isString(),
-    body('prtelefono').not().isEmpty().isString(),
-    body('prdireccion').not().isEmpty().isString()
+    body('NombreProveedor').not().isEmpty().isString(),
+    body('EdadProveedor').not().isEmpty(),
+    body('TelefonoProveedor').not().isEmpty().isString(),
+    body('DireccionProveedor').not().isEmpty().isString()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,11 +55,11 @@ router.post('/proveedor_new', [
 
 // update de un proveedor
 router.put('/proveedor_edit', [
-    body('idProveedor').not().isEmpty(),
-    body('prnombre').not().isEmpty().isString(),
-    body('predad').not().isEmpty().isString(),
-    body('prtelefono').not().isEmpty().isString(),
-    body('prdireccion').not().isEmpty().isString()
+    body('IdProveedor').not().isEmpty(),
+    body('NombreProveedor').not().isEmpty().isString(),
+    body('EdadProveedor').not().isEmpty(),
+    body('TelefonoProveedor').not().isEmpty().isString(),
+    body('DireccionProveedor').not().isEmpty().isString()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -70,15 +69,14 @@ router.put('/proveedor_edit', [
         })
         return
     }
-    let id = req.body.idProveedor;
+    let id = req.body.IdProveedor;
     let values = {
-        idProveedor:  id,
-        prnombre: req.body.prnombre,
-        predad: req.body.predad,
-        prtelefono: req.body.prtelefono,
-        prdireccion: req.body.prdireccion
+        NombreProveedor: req.body.NombreProveedor,
+        EdadProveedor: req.body.EdadProveedor,
+        TelefonoProveedor: req.body.TelefonoProveedor,
+        DireccionProveedor: req.body.DireccionProveedor
     }
-    query.edit(connection, "proveedor", "idProveedor", id, values, (data => {
+    query.edit(connection, "proveedor", "IdProveedor", id, values, (data => {
         res.json(data);
     }))
 });
@@ -86,7 +84,7 @@ router.put('/proveedor_edit', [
 // Ruta para eliminar un proveedor por su ID (PK)
 router.delete('/proveedor/:id', (req, res) => {
     const id = req.params.id;
-    query.delete(connection, "proveedor", "idProveedor", id, (data => {
+    query.delete(connection, "proveedor", "IdProveedor", id, (data => {
         if (data.success) {
             res.json({
                 success: true,

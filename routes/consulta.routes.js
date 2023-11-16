@@ -56,11 +56,11 @@ router.post('/consulta_new', [
 
 // update de una consulta
 router.put('/consulta_edit', [
-    body('Cliente_idCliente').not().isEmpty(),
-    body('Doctor_idDoctor').not().isEmpty(),
-    body('precioc').not().isEmpty(),
-    body('fechac').not().isEmpty().isString(),
-    body('idConsulta').not().isEmpty()
+    body('IdConsulta').not().isEmpty(),
+    body('Cliente_IdCliente').not().isEmpty(),
+    body('Doctor_IdDoctor').not().isEmpty(),
+    body('ConsultarPrecio').not().isEmpty(),
+    body('ConsultarFecha').not().isEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -70,15 +70,14 @@ router.put('/consulta_edit', [
         })
         return
     }
-    let id = req.body.idConsulta;
+    let id = req.body.IdConsulta;
     let values = {
-        Cliente_idCliente:  req.body.Cliente_idCliente,
-        Doctor_idDoctor: req.body.Doctor_idDoctor,
-        precioc: req.body.precioc,
-        fechac: req.body.fechac,
-        idConsulta: id
+        Cliente_IdCliente: req.body.Cliente_IdCliente,
+        Doctor_IdDoctor: req.body.Doctor_IdDoctor,
+        ConsultarPrecio: req.body.ConsultarPrecio,
+        ConsultarFecha: req.body.ConsultarFecha
     }
-    query.edit(connection, "consultar", "idConsulta", id, values, (data => {
+    query.edit(connection, "consultar", "IdConsulta", id, values, (data => {
         res.json(data);
     }))
 })
