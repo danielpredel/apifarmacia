@@ -36,11 +36,10 @@ router.get('/pedido/:id', (req, res) => {
 
 // insersion de un nuevo pedido
 router.post('/pedido_new', [
-    body('totalpedido').not().isEmpty().isString(),
-    body('fechas').not().isEmpty().isString(),
-    body('idPedido').not().isEmpty().isString(),
-    body('Proveedor_idProveedor').not().isEmpty().isString(),
-    body('status').not().isEmpty().isString()
+    body('TotalPedido').not().isEmpty(),
+    body('FechasPedido').not().isEmpty().isString(),
+    body('Proveedor_IdProveedor').not().isEmpty(),
+    body('StatusPedido').not().isEmpty().isString()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

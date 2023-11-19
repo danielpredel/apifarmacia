@@ -34,11 +34,10 @@ router.get('/consulta/:id', (req, res) => {
 
 // insersion de un nueva consulta
 router.post('/consulta_new', [
-    body('Cliente_idCliente').not().isEmpty(),
-    body('Doctor_idDoctor').not().isEmpty(),
-    body('precioc').not().isEmpty(),
-    body('fechac').not().isEmpty().isString(),
-    body('idConsulta').not().isEmpty()
+    body('Cliente_IdCliente').not().isEmpty(),
+    body('Doctor_IdDoctor').not().isEmpty(),
+    body('ConsultarPrecio').not().isEmpty(),
+    body('ConsultarFecha').not().isEmpty().isString(),
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -49,7 +48,7 @@ router.post('/consulta_new', [
         return
     }
     let body = req.body;
-    query.new(connection, "consultar", body, (data => {
+    query.new(connection, "consulta", body, (data => {
         res.json(data);
     }))
 });
@@ -77,7 +76,7 @@ router.put('/consulta_edit', [
         ConsultarPrecio: req.body.ConsultarPrecio,
         ConsultarFecha: req.body.ConsultarFecha
     }
-    query.edit(connection, "consultar", "IdConsulta", id, values, (data => {
+    query.edit(connection, "consulta", "IdConsulta", id, values, (data => {
         res.json(data);
     }))
 })
