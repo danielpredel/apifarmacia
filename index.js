@@ -18,6 +18,7 @@ const producto_ventaRoutes = require('./routes/producto_venta.routes')
 const productoRoutes = require('./routes/producto.routes')
 const proveedorRoutes = require('./routes/proveedor.routes')
 const ventaRoutes = require('./routes/venta.routes')
+const consultasRoutes=require('./routes/consultas.routes')
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -38,7 +39,7 @@ app.use('/', producto_ventaRoutes)
 app.use('/', productoRoutes)
 app.use('/', proveedorRoutes)
 app.use('/', ventaRoutes)
-
+app.use('/', consultasRoutes)
 connection.connect((err, res) => {
     if (err) {
         console.log(err)
