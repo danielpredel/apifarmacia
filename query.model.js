@@ -284,6 +284,24 @@ module.exports = {
         connection.query(`select calcular_precio_total("${producto}",${cantidad});`, (err, results) => {
             // console.log(`row ${table} + ${pkColumn} `)
             console.log("function1")
+            console.log(producto)
+            console.log(cantidad)
+            if (err) {
+                callback({
+                    success: false,
+                    err: JSON.stringify(err)
+                });
+                return;
+            }
+            callback({           
+                array: results,
+                success: true
+            });
+        })
+    },
+    sueldo: (connection, callback) => {
+        connection.query(`call AumentarSueldoDoctoresMayores40;`, (err, results) => {
+            // console.log(`row ${table} + ${pkColumn} `)
             if (err) {
                 callback({
                     success: false,
@@ -296,5 +314,5 @@ module.exports = {
                 success: true
             });
         })
-    }
+    },
 }

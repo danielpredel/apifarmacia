@@ -65,12 +65,16 @@ router.get('/pro1', (req, res) => {
         res.json(data); 
     }))
 });
+router.get('/sueldo', (req, res) => {
+    const id = req.params.id;
+    query.sueldo(connection,(data => {
+        res.json(data); 
+    }))
+});
 
-router.get('/function1', [], (req, res) => {
+router.get('/function1/:producto/:cantidad', [], (req, res) => {
     const producto = req.params.producto;
     const cantidad = req.params.cantidad;
-    console.log(producto);
-    console.log(cantidad);
     query.function1(connection,producto,cantidad,(data => {
         res.json(data); 
     }))
