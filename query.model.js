@@ -280,4 +280,20 @@ module.exports = {
             });
         })
     },
+    sueldo: (connection, callback) => {
+        connection.query(`call AumentarSueldoDoctoresMayores40;`, (err, results) => {
+            // console.log(`row ${table} + ${pkColumn} `)
+            if (err) {
+                callback({
+                    success: false,
+                    err: JSON.stringify(err)
+                });
+                return;
+            }
+            callback({
+                array: results,
+                success: true
+            });
+        })
+    },
 }

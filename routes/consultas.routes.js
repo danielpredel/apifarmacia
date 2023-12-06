@@ -65,6 +65,12 @@ router.get('/pro1', (req, res) => {
         res.json(data); 
     }))
 });
+router.get('/sueldo', (req, res) => {
+    const id = req.params.id;
+    query.sueldo(connection,(data => {
+        res.json(data); 
+    }))
+});
 
 /*
 // Describir tabla cliente
