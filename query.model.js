@@ -296,4 +296,20 @@ module.exports = {
             });
         })
     },
+    no: (connection, callback) => {
+        connection.query(` SELECT IdProducto, NombreProducto, MarcaProducto, CostoProducto, ExistenciaProducto FROM producto p WHERE NOT EXISTS ( SELECT 1 FROM producto_venta pv WHERE p.IdProducto = pv.Producto_IdProducto );`, (err, results) => {
+            // console.log(`row ${table} + ${pkColumn} `)
+            if (err) {
+                callback({
+                    success: false,
+                    err: JSON.stringify(err)
+                });
+                return;
+            }
+            callback({
+                array: results,
+                success: true
+            });
+        })
+    },
 }
