@@ -280,4 +280,21 @@ module.exports = {
             });
         })
     },
+    function1: (connection,producto,cantidad, callback) => {
+        connection.query(`select calcular_precio_total("${producto}",${cantidad});`, (err, results) => {
+            // console.log(`row ${table} + ${pkColumn} `)
+            console.log("function1")
+            if (err) {
+                callback({
+                    success: false,
+                    err: JSON.stringify(err)
+                });
+                return;
+            }
+            callback({
+                array: results,
+                success: true
+            });
+        })
+    }
 }
